@@ -3,14 +3,43 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Pathfinding</title>
+  <title>maze</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 
-<body style="margin-top: 50px;">
-  <center><canvas id="canvas" /></center>
+<body>
 
-  <script src="./main.js"></script>
+  <h1>Maze</h1>
+  <table>
+    <tbody>
+      <tr>
+        <td><canvas id="canvas" width="0px" height="0px" /></td>
+        <td>
+          <table>
+            <tbody>
+              <tr>
+                <td>tile size (px): <input type="text" id="sqr_size"></td>
+              </tr>
+              <tr>
+                <td>rows: <input type="text" id="row_amt"></td>
+                <td>columns: <input type="text" id="col_amt"></td>
+              </tr>
+              <tr>
+                <td><button id="gen_maz_but">generate maze</button></td>
+                <td><button id="play_btn">play</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="js/pre_maze.js"> </script>
+  <script src=" js/maze.js"> </script>
+  <script src="js/play.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
