@@ -31,6 +31,24 @@ function fresh_tile(x, y, row, col) {
     };
 }
 
+let state = {
+    row: 0,
+    col: 0,
+    pressedKeys: {
+        W: false,
+        E: false,
+        N: false,
+        S: false
+    }
+};
+
+var keyMap = {
+    68: "E",
+    65: "W",
+    87: "N",
+    83: "S"
+};
+
 function create_tile_grid(rows, columns) {
     let tile_list = [];
     for (let i = 0; i < rows; i++) {

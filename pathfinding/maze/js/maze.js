@@ -37,7 +37,7 @@ function remove_neighbour_connection(tile, wall) {
         }
     }
     if (splice_idx != -1) {
-        new_tile.passage.push(new_tile.walls.splice(splice_idx, 1));
+        new_tile.passage.push(new_tile.walls.splice(splice_idx, 1)[0]);
     }
     return new_tile;
 }
@@ -79,13 +79,74 @@ function remove_walls_from_maze(maze, neighbour, wall) {
             }
 
             if (splice_idx != -1) {
-                mod_maze[index].passage.push(mod_maze[index].walls.splice(splice_idx, 1));
+                mod_maze[index].passage.push(mod_maze[index].walls.splice(splice_idx, 1)[0]);
             }
         }
     }
     mod_maze.push(remove_neighbour_connection(neighbour, wall));
 
     return mod_maze;
+}
+
+function chop_new_passages(maze, rows, columns) {
+    let new_maze = maze;
+
+    let new_passages = Math.floor((rows * columns) * 0.1);
+
+    let ind = 0;
+    while (ind != new_passages) {
+
+        let chp_row = Math.floor((Math.random() * (rows - 2))) + 1;
+        let chp_col = Math.floor((Math.random() * (columns - 2))) + 1;
+
+        let len = new_maze[chp_row][chp_col].walls.length;
+        if ((len > 1 && columns < 8 && rows < 8) || len > 2) {
+            let chp_wall_num = Math.floor(Math.random() * len);
+            let chp_wall = new_maze[chp_row][chp_col].walls.splice(chp_wall_num, 1)[0];
+            new_maze[chp_row][chp_col].passage.push(chp_wall);
+
+
+            let chp_wall_2_row = chp_wall.row;
+            let chp_wall_2_col = chp_wall.col;
+
+            switch (chp_wall.pos) {
+                case "N":
+                    chp_wall_2_row = chp_wall_2_row - 1;
+                    break;
+                case "S":
+                    chp_wall_2_row = chp_wall_2_row + 1;
+                    break;
+                case "E":
+                    chp_wall_2_col = chp_wall_2_col + 1;
+                    break;
+                case "W":
+                    chp_wall_2_col = chp_wall_2_col - 1;
+                    break;
+            }
+
+            chp_wall_2_idx = -1;
+
+            for (let index = 0; index < new_maze[chp_wall_2_row][chp_wall_2_col].walls.length; index++) {
+                if (new_maze[chp_wall_2_row][chp_wall_2_col].walls[index].pos == "S" && chp_wall.pos == "N") {
+                    chp_wall_2_idx = index
+                } else if (new_maze[chp_wall_2_row][chp_wall_2_col].walls[index].pos == "N" && chp_wall.pos == "S") {
+                    chp_wall_2_idx = index
+                } else if (new_maze[chp_wall_2_row][chp_wall_2_col].walls[index].pos == "W" && chp_wall.pos == "E") {
+                    chp_wall_2_idx = index
+                } else if (new_maze[chp_wall_2_row][chp_wall_2_col].walls[index].pos == "E" && chp_wall.pos == "W") {
+                    chp_wall_2_idx = index
+                }
+            }
+
+            let chp_wall_2 = new_maze[chp_wall_2_row][chp_wall_2_col].walls.splice(chp_wall_2_idx, 1)[0];
+            new_maze[chp_wall_2_row][chp_wall_2_col].passage.push(chp_wall_2);
+
+            ind += 1;
+        }
+
+    }
+
+    return new_maze;
 }
 
 function create_maze_tiles(rows, columns) {
@@ -118,6 +179,8 @@ function create_maze_tiles(rows, columns) {
         tile = maze_list.pop();
         maze[tile.pos.row][tile.pos.col] = tile;
     }
+
+    maze = chop_new_passages(maze, rows, columns);
 
     return maze;
 }
