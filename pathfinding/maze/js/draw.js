@@ -44,8 +44,8 @@ function draw_maze() {
             });
         });
     }
-    let goal_x = (state.columns - 1) * state.square_size + 1;
-    let goal_y = (state.rows - 1) * state.square_size + 1;
+    let goal_x = (state.goal_col) * state.square_size + 1;
+    let goal_y = (state.goal_row) * state.square_size + 1;
     ctx.fillStyle = "#ff0000";
     ctx.fillRect(goal_x, goal_y, state.square_size - 2, state.square_size - 2);
 }

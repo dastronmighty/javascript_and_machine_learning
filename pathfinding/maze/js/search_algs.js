@@ -3,7 +3,7 @@ function breadth_first_path(tree) {
   q.push(tree);
   while (q.length > 0) {
     let v = q.shift();
-    if ((v.node.row == (state.rows - 1)) && (v.node.col == (state.columns - 1))) {
+    if ((v.node.row == state.goal_row) && (v.node.col == state.goal_col)) {
       let path = v.parents.slice(0);
       path.push(v.node);
       return path;
