@@ -7,7 +7,12 @@
   </head>
 
   <body>
-    <h1>Maze</h1>
+    <h1>Breadth First Search Maze Solver Visualization</h1>
+    <p>With a dash of maze generation aswell ;D</p>
+    <h3>Red: Goal</h3>
+    <h3>White: tiles queued for exploration</h3>
+    <h3>Yellow: tiles explored</h3>
+    <h3>Green: Path Found</h3>
     <table>
       <tbody>
         <tr>
@@ -23,8 +28,8 @@
                     passage chance (0 < chance < 1):
                     <input type="text" id="passage_chance" />
                     <p>
-                      WARNING ANYTHING > 0.05 CAN HAVE SIGNIFICANT IMPACTS ON
-                      MEMORY
+                      WARNING ANYTHING > 0.005 CAN HAVE SIGNIFICANT IMPACTS ON
+                      MEMORY WHEN DEALING WITH LARGE MAZE SIZES
                     </p>
                   </td>
                 </tr>

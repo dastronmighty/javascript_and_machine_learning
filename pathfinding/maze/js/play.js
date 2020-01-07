@@ -2,7 +2,7 @@ let path = [];
 
 function draw_path() {
     path.forEach(pos => {
-        draw_square_from_pos(pos, "#66ff33");
+        draw_square_from_pos(pos, "#00b300");
     });
     if (state.path.length > 0) {
         let new_pos = state.path.shift();
@@ -12,13 +12,13 @@ function draw_path() {
 
 function draw_visited() {
     state.search_nodes_visited.forEach(node => {
-        draw_square_from_pos(node.node, "#0040ff");
+        draw_square_from_pos(node.node, "#e6e600");
     })
 }
 
 function draw_fringe() {
     state.search_nodes_fringe.forEach(node => {
-        draw_square_from_pos(node.node, "#ff99ff");
+        draw_square_from_pos(node.node, "#ffffff");
     })
 }
 

@@ -12,10 +12,10 @@ let passage_chance_in = document.getElementById("passage_chance");
 let goal_row_in = document.getElementById("goal_r");
 let goal_col_in = document.getElementById("goal_c");
 
-sqr_size_in.value = 15;
-row_amt_in.value = 40;
-col_amt_in.value = 60;
-passage_chance_in.value = 0.005;
+sqr_size_in.value = 20;
+row_amt_in.value = 20;
+col_amt_in.value = 40;
+passage_chance_in.value = 0.01;
 goal_row_in.value = row_amt_in.value - 1
 goal_col_in.value = col_amt_in.value - 1
 
