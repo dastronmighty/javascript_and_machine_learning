@@ -1,5 +1,5 @@
 function clearCanvas() {
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, (state.columns * state.square_size), (state.rows * state.square_size));
 }
 
 function drawLine(start_x, start_y, end_x, end_y) {
@@ -11,34 +11,41 @@ function drawLine(start_x, start_y, end_x, end_y) {
 
 function drawCell(tile) {
     tile.walls.forEach(wall => {
-        if (wall.pos == "N") {
-            drawLine(tile.pos.x, tile.pos.y, tile.pos.x + square_size, tile.pos.y);
-        }
-        if (wall.pos == "S") {
-            drawLine(tile.pos.x,
-                tile.pos.y + square_size,
-                tile.pos.x + square_size,
-                tile.pos.y + square_size
-            );
-        }
-        if (wall.pos == "E") {
-            drawLine(tile.pos.x + square_size,
-                tile.pos.y,
-                tile.pos.x + square_size,
-                tile.pos.y + square_size
-            );
-        }
-        if (wall.pos == "W") {
-            drawLine(tile.pos.x, tile.pos.y, tile.pos.x, tile.pos.y + square_size);
+        switch (wall.pos) {
+            case "N":
+                drawLine(tile.pos.x, tile.pos.y, tile.pos.x + state.square_size, tile.pos.y);
+                break;
+            case "S":
+                drawLine(tile.pos.x,
+                    tile.pos.y + state.square_size,
+                    tile.pos.x + state.square_size,
+                    tile.pos.y + state.square_size
+                );
+                break;
+            case "E":
+                drawLine(tile.pos.x + state.square_size,
+                    tile.pos.y,
+                    tile.pos.x + state.square_size,
+                    tile.pos.y + state.square_size
+                );
+                break;
+            case "W":
+                drawLine(tile.pos.x, tile.pos.y, tile.pos.x, tile.pos.y + state.square_size);
+                break;
         }
     });
 }
 
 function draw_maze() {
-    ctx.strokeStyle = "black";
-    tiles.forEach(row => {
-        row.forEach(tile => {
-            drawCell(tile);
+    if (state.tiles.length > 0) {
+        state.tiles.forEach(row => {
+            row.forEach(tile => {
+                drawCell(tile);
+            });
         });
-    });
+    }
+    let goal_x = (state.columns - 1) * state.square_size + 1;
+    let goal_y = (state.rows - 1) * state.square_size + 1;
+    ctx.fillStyle = "#ff0000";
+    ctx.fillRect(goal_x, goal_y, state.square_size - 2, state.square_size - 2);
 }

@@ -88,10 +88,10 @@ function remove_walls_from_maze(maze, neighbour, wall) {
     return mod_maze;
 }
 
-function chop_new_passages(maze, rows, columns) {
+function chop_new_passages(maze, rows, columns, chance) {
     let new_maze = maze;
 
-    let new_passages = Math.floor((rows * columns) * 0.1);
+    let new_passages = Math.floor((rows * columns) * chance);
 
     let ind = 0;
     while (ind != new_passages) {
@@ -100,7 +100,7 @@ function chop_new_passages(maze, rows, columns) {
         let chp_col = Math.floor((Math.random() * (columns - 2))) + 1;
 
         let len = new_maze[chp_row][chp_col].walls.length;
-        if ((len > 1 && columns < 8 && rows < 8) || len > 2) {
+        if (len > 2) {
             let chp_wall_num = Math.floor(Math.random() * len);
             let chp_wall = new_maze[chp_row][chp_col].walls.splice(chp_wall_num, 1)[0];
             new_maze[chp_row][chp_col].passage.push(chp_wall);
@@ -149,12 +149,12 @@ function chop_new_passages(maze, rows, columns) {
     return new_maze;
 }
 
-function create_maze_tiles(rows, columns) {
-    let new_tiles = create_tile_grid(rows, columns);
+function create_maze_tiles(state) {
+    let new_tiles = create_tile_grid(state.rows, state.columns, state.square_size);
     let walls = [];
     let maze_list = [];
-    const start_row = Math.floor(Math.random() * rows);
-    const start_column = Math.floor(Math.random() * columns);
+    const start_row = Math.floor(Math.random() * state.rows);
+    const start_column = Math.floor(Math.random() * state.columns);
 
     let init_tile = new_tiles[start_row][start_column];
     maze_list.push(init_tile);
@@ -163,7 +163,7 @@ function create_maze_tiles(rows, columns) {
     while (walls.length != 0) {
         let curr_wall_loc = Math.floor(Math.random() * walls.length);
         let curr_wall = walls[curr_wall_loc];
-        let neighbour = get_wall_neighbour(curr_wall, new_tiles, rows, columns);
+        let neighbour = get_wall_neighbour(curr_wall, new_tiles, state.rows, state.columns);
         if (neighbour != null) {
             if (!neighbour_visited(neighbour, maze_list)) {
                 walls = walls.concat(neighbour.walls);
@@ -173,14 +173,16 @@ function create_maze_tiles(rows, columns) {
         walls.splice(curr_wall_loc, 1);
     }
 
-    let maze = create_null_grid(rows, columns);
+    let maze = create_null_grid(state.rows, state.columns);
 
     while (maze_list.length != 0) {
         tile = maze_list.pop();
         maze[tile.pos.row][tile.pos.col] = tile;
     }
 
-    maze = chop_new_passages(maze, rows, columns);
+    if (state.rows > 10 && state.columns > 10) {
+        maze = chop_new_passages(maze, state.rows, state.columns, state.chance);
+    }
 
     return maze;
 }

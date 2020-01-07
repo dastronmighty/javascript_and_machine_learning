@@ -31,31 +31,13 @@ function fresh_tile(x, y, row, col) {
     };
 }
 
-let state = {
-    row: 0,
-    col: 0,
-    pressedKeys: {
-        W: false,
-        E: false,
-        N: false,
-        S: false
-    }
-};
-
-var keyMap = {
-    68: "E",
-    65: "W",
-    87: "N",
-    83: "S"
-};
-
-function create_tile_grid(rows, columns) {
+function create_tile_grid(rows, columns, sqr_size) {
     let tile_list = [];
     for (let i = 0; i < rows; i++) {
         row_list = [];
         for (let j = 0; j < columns; j++) {
-            let x_pos = j * square_size;
-            let y_pos = i * square_size;
+            let x_pos = j * sqr_size;
+            let y_pos = i * sqr_size;
             row_list.push(fresh_tile(x_pos, y_pos, i, j));
         }
         tile_list.push(row_list);
