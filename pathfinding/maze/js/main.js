@@ -74,4 +74,4 @@ function loop() {
     }
 }
 
-setInterval(loop, 100);
+setInterval(loop, 1);
