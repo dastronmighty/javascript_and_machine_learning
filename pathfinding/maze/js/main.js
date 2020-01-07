@@ -1,18 +1,3 @@
-let state = {
-    rows: 0,
-    columns: 0,
-    square_size: 0,
-    chance: 0,
-    play: false,
-    ai_row: 0,
-    ai_col: 0,
-    goal_row: 24,
-    goal_col: 20,
-    tiles: [],
-    tree: null,
-    bfs_path: []
-};
-
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 ctx.strokeStyle = "black";
@@ -39,6 +24,8 @@ function change_desc() {
     state.square_size = parseInt(sqr_size_in.value);
     state.rows = parseInt(row_amt_in.value);
     state.columns = parseInt(col_amt_in.value);
+    goal_row_in.value = row_amt_in.value - 1
+    goal_col_in.value = col_amt_in.value - 1
 
     state.goal_row = parseInt(goal_row_in.value);
     state.goal_col = parseInt(goal_col_in.value);
@@ -52,9 +39,12 @@ function change_desc() {
 const reset_ai = () => {
     state.goal_row = parseInt(goal_row_in.value);
     state.goal_col = parseInt(goal_col_in.value);
-    state.bfs_path = breadth_first_path(state.tree);
-    state.ai_col = 0;
-    state.ai_row = 0;
+    state.path = breadth_first_path(state.tree);
+
+    state.search_nodes_fringe = [];
+    state.search_nodes_visited = [];
+    state.search_complete = false;
+    state.search_nodes_fringe.push(state.tree)
 }
 
 function generate_maze() {

@@ -1,17 +1,33 @@
-function update_ai_path() {
-    if (state.bfs_path.length > 0) {
-        let new_ai_pos = state.bfs_path.shift();
-        state.ai_row = new_ai_pos.row;
-        state.ai_col = new_ai_pos.col;
-    }
+let path = [];
 
+function draw_path() {
+    path.forEach(pos => {
+        draw_square_from_pos(pos, "#66ff33");
+    });
+    if (state.path.length > 0) {
+        let new_pos = state.path.shift();
+        path.push(new_pos);
+    }
+}
+
+function draw_visited() {
+    state.search_nodes_visited.forEach(node => {
+        draw_square_from_pos(node.node, "#0040ff");
+    })
+}
+
+function draw_fringe() {
+    state.search_nodes_fringe.forEach(node => {
+        draw_square_from_pos(node.node, "#ff99ff");
+    })
 }
 
 function update() {
-    ctx.fillStyle = "#00ff00";
-    let ai_x = (state.ai_col * state.square_size) + 1;
-    let ai_y = (state.ai_row * state.square_size) + 1;
-    let ai_size = state.square_size - 2;
-    ctx.fillRect(ai_x, ai_y, ai_size, ai_size);
-    update_ai_path();
+    draw_visited();
+    draw_fringe();
+    if (state.search_complete) {
+        draw_path();
+    } else {
+        breadth_first_search();
+    }
 }
