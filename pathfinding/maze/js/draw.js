@@ -37,9 +37,9 @@ function drawCell(tile) {
 }
 
 function draw_square_from_pos(pos, color) {
-    let x = (pos.col * state.square_size) + 1
-    let y = (pos.row * state.square_size) + 1
-    draw_square(x, y, (state.square_size - 2), color);
+    let x = (pos.col * state.square_size) + 2
+    let y = (pos.row * state.square_size) + 2
+    draw_square(x, y, (state.square_size - 4), color);
 }
 
 function draw_square(x, y, size, color) {
@@ -48,9 +48,9 @@ function draw_square(x, y, size, color) {
 }
 
 function draw_goal() {
-    let goal_x = (state.goal_col) * state.square_size + 1;
-    let goal_y = (state.goal_row) * state.square_size + 1;
-    draw_square(goal_x, goal_y, (state.square_size - 2), "#ff0000");
+    let goal_x = (state.goal_col) * state.square_size + 2;
+    let goal_y = (state.goal_row) * state.square_size + 2;
+    draw_square(goal_x, goal_y, (state.square_size - 4), "#ff0000");
 }
 
 function draw_maze() {

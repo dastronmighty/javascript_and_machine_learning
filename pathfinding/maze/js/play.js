@@ -1,13 +1,7 @@
-let path = [];
-
 function draw_path() {
-    path.forEach(pos => {
+    state.path.forEach(pos => {
         draw_square_from_pos(pos, "#00b300");
     });
-    if (state.path.length > 0) {
-        let new_pos = state.path.shift();
-        path.push(new_pos);
-    }
 }
 
 function draw_visited() {
@@ -28,6 +22,12 @@ function update() {
     if (state.search_complete) {
         draw_path();
     } else {
-        breadth_first_search();
+        if (state.search_type === "BFS") {
+            breadth_first_search();
+        } else if (state.search_type === "DFS") {
+            depth_first_search();
+        } else if (state.search_type === "GBF") {
+            greedy_best_first_search();
+        }
     }
 }

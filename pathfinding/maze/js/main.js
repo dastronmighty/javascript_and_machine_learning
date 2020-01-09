@@ -12,6 +12,16 @@ let passage_chance_in = document.getElementById("passage_chance");
 let goal_row_in = document.getElementById("goal_r");
 let goal_col_in = document.getElementById("goal_c");
 
+let bfs_rad = document.getElementById("bfs_rad");
+bfs_rad.checked = true;
+let dfs_rad = document.getElementById("dfs_rad");
+let gbf_rad = document.getElementById("gbf_rad");
+
+let search_alg_selection = []
+search_alg_selection.push(bfs_rad);
+search_alg_selection.push(dfs_rad);
+search_alg_selection.push(gbf_rad);
+
 sqr_size_in.value = 20;
 row_amt_in.value = 20;
 col_amt_in.value = 40;
@@ -34,17 +44,26 @@ function change_desc() {
 
     canvas.width = (state.columns * state.square_size);
     canvas.height = (state.rows * state.square_size);
+
+
 }
 
 const reset_ai = () => {
     state.goal_row = parseInt(goal_row_in.value);
     state.goal_col = parseInt(goal_col_in.value);
-    state.path = breadth_first_path(state.tree);
+
+    state.visited = [];
 
     state.search_nodes_fringe = [];
     state.search_nodes_visited = [];
     state.search_complete = false;
-    state.search_nodes_fringe.push(state.tree)
+    state.search_nodes_fringe.push(state.tree);
+
+    search_alg_selection.forEach(rad => {
+        if (rad.checked) {
+            state.search_type = rad.value;
+        }
+    });
 }
 
 function generate_maze() {
@@ -74,4 +93,4 @@ function loop() {
     }
 }
 
-setInterval(loop, 1);
+setInterval(loop, 10);

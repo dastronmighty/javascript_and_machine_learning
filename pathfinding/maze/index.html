@@ -1,67 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>maze</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <h1>Breadth First Search Maze Solver Visualization</h1>
-    <p>With a dash of maze generation aswell ;D</p>
-    <h3>Red: Goal</h3>
-    <h3>White: tiles queued for exploration</h3>
-    <h3>Yellow: tiles explored</h3>
-    <h3>Green: Path Found</h3>
-    <table>
-      <tbody>
-        <tr>
-          <td><canvas id="canvas" width="0px" height="0px" /></td>
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td>tile size (px): <input type="text" id="sqr_size" /></td>
-                </tr>
-                <tr>
-                  <td>
-                    passage chance (0 < chance < 1):
-                    <input type="text" id="passage_chance" />
-                    <p>
-                      WARNING ANYTHING > 0.005 CAN HAVE SIGNIFICANT IMPACTS ON
-                      MEMORY WHEN DEALING WITH LARGE MAZE SIZES
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>rows: <input type="text" id="row_amt" /></td>
-                  <td>columns: <input type="text" id="col_amt" /></td>
-                </tr>
-                <tr>
-                  <td>Goal Row: <input type="text" id="goal_r" /></td>
-                  <td>Goal Column: <input type="text" id="goal_c" /></td>
-                </tr>
-                <tr>
-                  <td><button id="gen_maz_but">regenerate maze</button></td>
-                  <td><button id="play_btn">run</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <script src="js/state.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <title>maze</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-    <script src="js/tree.js"></script>
-    <script src="js/search_algs.js"></script>
+<body>
+  <h1>Breadth First Search Maze Solver Visualization</h1>
+  <p>With a dash of maze generation aswell ;D</p>
+  <h3>Red: Goal</h3>
+  <h3>White: tiles queued for exploration</h3>
+  <h3>Yellow: tiles explored</h3>
+  <h3>Green: Path Found</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td><canvas id="canvas" width="0px" height="0px" /></td>
+        <td>
+          <table>
+            <tbody>
+              <tr>
+                <td>tile size (px): <input type="text" id="sqr_size" /></td>
+              </tr>
+              <tr>
+                <td>
+                  passage chance (0
+                  < chance < 1): <input type="text" id="passage_chance" />
+                  <p>
+                    WARNING ANYTHING > 0.005 CAN HAVE SIGNIFICANT IMPACTS ON
+                    MEMORY WHEN DEALING WITH LARGE MAZE SIZES
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>rows: <input type="text" id="row_amt" /></td>
+                <td>columns: <input type="text" id="col_amt" /></td>
+              </tr>
+              <tr>
+                <td>Goal Row: <input type="text" id="goal_r" /></td>
+                <td>Goal Column: <input type="text" id="goal_c" /></td>
+              </tr>
+              <tr>
+                <td>
+                  Breadth First <input type="radio" name="search_alg_sel" id="bfs_rad" value="BFS" />
+                  <br>
+                  Depth First <input type="radio" name="search_alg_sel" id="dfs_rad" value="DFS" />
+                  <br>
+                  Greedy Best First <input type="radio" name="search_alg_sel" id="gbf_rad" value="GBF" />
+                </td>
+              </tr>
+              <tr>
+                <td><button id="gen_maz_but">regenerate maze</button></td>
+                <td><button id="play_btn">run</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <script src="js/state.js"></script>
 
-    <script src="js/pre_maze.js"></script>
-    <script src=" js/maze.js"></script>
+  <script src="js/tree.js"></script>
+  <script src="js/search_algs.js"></script>
 
-    <script src="js/play.js"></script>
-    <script src="js/draw.js"></script>
+  <script src="js/pre_maze.js"></script>
+  <script src=" js/maze.js"></script>
 
-    <script src="js/main.js"></script>
-  </body>
+  <script src="js/play.js"></script>
+  <script src="js/draw.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+
 </html>
